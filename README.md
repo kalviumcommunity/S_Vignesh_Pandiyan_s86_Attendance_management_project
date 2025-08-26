@@ -45,6 +45,13 @@ Session 2: Student and Course objects displayed with details
 - Utilized arrays of objects in `Main.java` to manage and display multiple students and courses.
 - Introduced basic usage of `this` keyword.
 
+## Session 3: Constructor Initialization & Auto-ID Generation
+
+- Implemented parameterized constructors in `Student` and `Course` for object initialization.
+- Used `private static` variables for automatic unique ID generation, with prefix "S" and "C" shown in output.
+- Removed manual setDetails; all objects now fully initialized at construction.
+- Demonstrated automatic ID progression in `Main.java`.
+
 ### How to Run
 
 1. Navigate to the project root directory.
