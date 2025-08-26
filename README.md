@@ -5,7 +5,7 @@ Session 2: Core Domain Modelling
 
 Project Structure:
 
-Kishore_S86_Attendance_management_project/
+S_Vignesh_Pandiyan_S86_Attendance_management_project/
 ├── src/
 │ └── com/
 │ └── school/
