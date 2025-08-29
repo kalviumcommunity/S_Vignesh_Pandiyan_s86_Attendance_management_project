@@ -8,6 +8,12 @@ public class Student {
         this.studentId = nextStudentIdCounter++;
         this.name = name;
     }
+    public int getStudentId(){
+        return studentId;
+    }
+    public String getStudentName(){
+        return  name;
+    }
     public void displayDetails() {
         System.out.println("Student ID: S" + this.studentId + ", Name: " + this.name);
     }
