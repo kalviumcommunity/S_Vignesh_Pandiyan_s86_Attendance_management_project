@@ -60,6 +60,15 @@ Session 2: Student and Course objects displayed with details
 - Used an `ArrayList` in `Main.java` to store and display `AttendanceRecord` objects.
 - Demonstrated retrieving IDs using getters (e.g., `student1.getStudentId()`) when creating records.
 
+## Part 5: Establishing Students, Teaching & Non-Teaching Staff Hierarchy
+
+- Created base class Person for common attributes and auto-ID assignment.
+- Refactored Student to inherit from Person; added gradeLevel.
+- Implemented Teacher and Staff subclasses with role-specific fields.
+- Overrode displayDetails() in each subclass to show details accordingly.
+- Updated main code to instantiate and display different Person types.
+- Used polymorphism and inheritance to simplify and unify ID handling.
+
 ### How to Run
 
 1. Navigate to the project root directory.
