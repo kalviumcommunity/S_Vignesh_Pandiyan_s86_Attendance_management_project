@@ -5,7 +5,6 @@ public class AttendanceRecord {
     private int courseId;
     private String status;
 
-    // Constructor with status validation
     public AttendanceRecord(int studentId, int courseId, String status) {
         this.studentId = studentId;
         this.courseId = courseId;
@@ -18,12 +17,12 @@ public class AttendanceRecord {
     }
 
     public int getStudentId() { return studentId; }
+
     public int getCourseId() { return courseId; }
+
     public String getStatus() { return status; }
 
     public void displayRecord() {
-        System.out.println("Student ID: S" + studentId +
-            ", Course ID: C" + courseId +
-            ", Status: " + status);
+        System.out.println("Student ID: S" + studentId + ", Course ID: C" + courseId + ", Status: " + status);
     }
 }
