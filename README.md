@@ -69,6 +69,14 @@ Session 2: Student and Course objects displayed with details
 - Updated main code to instantiate and display different Person types.
 - Used polymorphism and inheritance to simplify and unify ID handling.
 
+## Part 6: Interface-Driven Persistence with Storage
+
+- Defined a `Storable` interface with a `toDataString()` method.
+- Modified `Student`, `Course`, and `AttendanceRecord` to implement `Storable` and provide CSV string output.
+- Created a `FileStorageService` class for saving any list of `Storable` objects to a text file.
+- Demonstrated in `Main.java` how to save lists of students, courses, and attendance records with one method call each.
+- Output files: `students.txt`, `courses.txt`, `attendance_log.txt`.
+
 ### How to Run
 
 1. Navigate to the project root directory.
