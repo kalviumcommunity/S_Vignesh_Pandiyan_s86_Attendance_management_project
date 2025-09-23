@@ -1,44 +1,46 @@
 package com.school;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("--- School Attendance System ---");
 
-        Student[] students = {
-            new Student("Alice Wonderland", "10-A"),
-            new Student("Bob The Builder", "10-B"),
-            new Student("Charlie Bucket", "11-C")
-        };
+        ArrayList<Student> students = new ArrayList<>();
+        students.add(new Student("Alice Wonderland", "10-A"));
+        students.add(new Student("Bob The Builder", "10-B"));
+        students.add(new Student("Charlie Bucket", "11-C"));
 
-        Course[] courses = {
-            new Course("Intro to Programming"),
-            new Course("Linear Algebra"),
-            new Course("Data Structures")
-        };
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.add(new Course("Intro to Programming"));
+        courses.add(new Course("Linear Algebra"));
+        courses.add(new Course("Data Structures"));
 
         System.out.println("\nRegistered Students:");
         for (Student student : students) {
-            if (student != null) student.displayDetails();
+            student.displayDetails();
         }
 
         System.out.println("\nAvailable Courses:");
         for (Course course : courses) {
-            if (course != null) course.displayDetails();
+            course.displayDetails();
         }
 
-        List<AttendanceRecord> attendanceLog = new ArrayList<>();
-        attendanceLog.add(new AttendanceRecord(students[0].getId(), courses[0].getCourseId(), "Present"));
-        attendanceLog.add(new AttendanceRecord(students[1].getId(), courses[1].getCourseId(), "Present"));
-        attendanceLog.add(new AttendanceRecord(students[2].getId(), courses[2].getCourseId(), "Present"));
+        ArrayList<AttendanceRecord> records = new ArrayList<>();
+        records.add(new AttendanceRecord(students.get(0).getId(), courses.get(0).getCourseId(), "Present"));
+        records.add(new AttendanceRecord(students.get(1).getId(), courses.get(1).getCourseId(), "Present"));
+        records.add(new AttendanceRecord(students.get(2).getId(), courses.get(2).getCourseId(), "Present"));
 
         System.out.println("\nAttendance Log:");
-        for (AttendanceRecord rec : attendanceLog) {
+        for (AttendanceRecord rec : records) {
             rec.displayRecord();
         }
 
-        System.out.println("\nSession 5: Students, Teachers & Staff Hierarchy Complete.");
+        FileStorageService fileService = new FileStorageService();
+        fileService.saveData(students, "students.txt");
+        fileService.saveData(courses, "courses.txt");
+        fileService.saveData(records, "attendance_log.txt");
+
+        System.out.println("\nSession 6: Interface-Driven Persistence & Storage Complete.");
     }
 }
