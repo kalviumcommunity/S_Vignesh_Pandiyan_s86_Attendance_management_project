@@ -8,8 +8,7 @@ public class Main {
     public static void displaySchoolDirectory(List<Person> people) {
         System.out.println("\n--- School Directory (Polymorphic Display) ---");
         for (Person person : people) {
-            person.displayDetails(); 
-            
+            person.displayDetails();
         }
     }
 
@@ -36,30 +35,32 @@ public class Main {
         schoolPeople.add(t1); schoolPeople.add(staff1);
         displaySchoolDirectory(schoolPeople);
 
-        ArrayList<AttendanceRecord> records = new ArrayList<>();
-        records.add(new AttendanceRecord(s1, c1, "Present"));
-        records.add(new AttendanceRecord(s2, c2, "Present"));
-        records.add(new AttendanceRecord(s3, c3, "Absent"));
-
-        System.out.println("\n--- Attendance Log (Object-based) ---");
-        for (AttendanceRecord rec : records) {
-            rec.displayRecord();
-        }
-
-        FileStorageService storage = new FileStorageService();
-
         ArrayList<Student> students = new ArrayList<>();
         for (Person p : schoolPeople) {
-            if (p instanceof Student) students.add((Student)p);
+            if (p instanceof Student) students.add((Student) p);
         }
-
         ArrayList<Course> courses = new ArrayList<>();
         courses.add(c1); courses.add(c2); courses.add(c3);
 
+        FileStorageService storage = new FileStorageService();
+        AttendanceService attendanceService = new AttendanceService(storage);
+
+        // Part 08: Overloaded markAttendance()
+        // Overload 1: using objects
+        attendanceService.markAttendance(s1, c1, "Present");
+        attendanceService.markAttendance(s2, c2, "Present");
+        // Overload 2: using IDs + lookup lists
+        attendanceService.markAttendance(s3.getId(), c3.getCourseId(), "Absent", students, courses);
+
+        // Part 08: Overloaded displayAttendanceLog()
+        attendanceService.displayAttendanceLog();         
+        attendanceService.displayAttendanceLog(s1);       
+        attendanceService.displayAttendanceLog(c2);       
+        attendanceService.saveAttendanceData();
+
         storage.saveData(students, "students.txt");
         storage.saveData(courses, "courses.txt");
-        storage.saveData(records, "attendance_log.txt");
 
-        System.out.println("\nSession 7: Polymorphism & Reports Complete.");
+        System.out.println("\nSession 8: Overloaded Commands for Attendance Complete.");
     }
 }
