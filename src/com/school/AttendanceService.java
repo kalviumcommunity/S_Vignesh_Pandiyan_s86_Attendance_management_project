@@ -7,23 +7,22 @@ import java.util.stream.Collectors;
 public class AttendanceService {
     private final List<AttendanceRecord> attendanceLog;
     private final FileStorageService storageService;
+    private final RegistrationService registrationService;
 
-    public AttendanceService(FileStorageService storageService) {
+    public AttendanceService(FileStorageService storageService, RegistrationService registrationService) {
         this.storageService = storageService;
+        this.registrationService = registrationService;
         this.attendanceLog = new ArrayList<>();
     }
 
-    // Overload 1: mark using objects directly
     public void markAttendance(Student student, Course course, String status) {
         AttendanceRecord rec = new AttendanceRecord(student, course, status);
         attendanceLog.add(rec);
     }
 
-    // Overload 2: mark using IDs + lookup lists
-    public void markAttendance(int studentId, int courseId, String status,
-                               List<Student> allStudents, List<Course> allCourses) {
-        Student s = findStudentById(studentId, allStudents);
-        Course c = findCourseById(courseId, allCourses);
+    public void markAttendance(int studentId, int courseId, String status) {
+        Student s = registrationService.findStudentById(studentId);
+        Course c = registrationService.findCourseById(courseId);
         if (s == null || c == null) {
             System.out.println("Warning: Cannot mark attendance. Student or Course not found for IDs: "
                     + studentId + ", " + courseId);
@@ -32,29 +31,13 @@ public class AttendanceService {
         markAttendance(s, c, status);
     }
 
-    private Student findStudentById(int id, List<Student> allStudents) {
-        for (Student s : allStudents) {
-            if (s.getId() == id) return s;
-        }
-        return null;
-    }
-
-    private Course findCourseById(int id, List<Course> allCourses) {
-        for (Course c : allCourses) {
-            if (c.getCourseId() == id) return c;
-        }
-        return null;
-    }
-
     public void displayAttendanceLog() {
         System.out.println("\n--- Attendance Log: All Records ---");
         if (attendanceLog.isEmpty()) {
             System.out.println("No attendance records yet.");
             return;
         }
-        for (AttendanceRecord rec : attendanceLog) {
-            rec.displayRecord();
-        }
+        for (AttendanceRecord rec : attendanceLog) rec.displayRecord();
     }
 
     public void displayAttendanceLog(Student student) {
