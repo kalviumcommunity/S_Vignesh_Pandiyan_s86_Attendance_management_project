@@ -32,10 +32,16 @@ public class RegistrationService {
         return st;
     }
 
-    public Course createCourse(String courseName) {
-        Course c = new Course(courseName);
+    // Updated: createCourse takes capacity
+    public Course createCourse(String courseName, int capacity) {
+        Course c = new Course(courseName, capacity);
         courses.add(c);
         return c;
+    }
+
+    // Keep old overload if referenced elsewhere (optional)
+    public Course createCourse(String courseName) {
+        return createCourse(courseName, 30);
     }
 
     public List<Student> getStudents() { return students; }
@@ -61,10 +67,23 @@ public class RegistrationService {
         return people;
     }
 
+    public boolean enrollStudentInCourse(Student student, Course course) {
+        boolean ok = course.addStudent(student);
+        if (ok) {
+            System.out.println("Enrolled " + student.getName() + " (S" + student.getId() + ") in "
+                    + course.getCourseName() + " (C" + course.getCourseId() + ")");
+        } else {
+            System.out.println("Failed to enroll " + student.getName() + " (S" + student.getId()
+                    + ") in " + course.getCourseName() + " (C" + course.getCourseId()
+                    + "): capacity full (" + course.getCapacity() + ")");
+        }
+        return ok;
+    }
+
     public void saveAllRegistrations() {
         storage.saveData(students, "students.txt");
         storage.saveData(teachers, "teachers.txt");
         storage.saveData(staffMembers, "staff.txt");
-        storage.saveData(courses, "courses.txt");
+        storage.saveData(courses, "courses.txt"); // now includes capacity
     }
 }
